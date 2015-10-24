@@ -261,6 +261,7 @@ class Assets
      * You may add more than one asset passing an array as argument.
      *
      * @param  mixed $asset
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
      * @param  int   $priority the priority, bigger comes first
      * @param  bool  $pipeline false if this should not be pipelined
      * @param null   $group
@@ -268,6 +269,15 @@ class Assets
      * @return $this
      */
     public function addCss($asset, $priority = null, $pipeline = true, $group = null)
+=======
+     * @param  int $priority the priority, bigger comes first
+     * @param  bool $pipeline false if this should not be pipelined
+     * @param null $group
+     *
+     * @return $this
+     */
+    public function addCss($asset, $priority = null, $pipeline = null, $group = null)
+>>>>>>> Added CSS Group asset support #374
     {
         if (is_array($asset)) {
             foreach ($asset as $a) {
@@ -276,8 +286,12 @@ class Assets
 
             return $this;
         } elseif (isset($this->collections[$asset])) {
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
             $this->addCss($this->collections[$asset], $priority, $pipeline, $group);
 
+=======
+            $this->add($this->collections[$asset], $priority, $pipeline, $group);
+>>>>>>> Added CSS Group asset support #374
             return $this;
         }
 
@@ -298,9 +312,14 @@ class Assets
             'remote'   => $remote,
             'priority' => intval($priority ?: 10),
             'order'    => count($this->css),
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
             'pipeline' => (bool) $pipeline,
             'group'    => $group ?: 'head',
             'modified' => $modified
+=======
+            'pipeline' => $pipeline ?: true,
+            'group' => $group ?: 'head'
+>>>>>>> Added CSS Group asset support #374
         ];
 
         // check for dynamic array and merge with defaults
@@ -427,8 +446,13 @@ class Assets
      * For adding chunks of string-based inline CSS
      *
      * @param  mixed $asset
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
      * @param  int   $priority the priority, bigger comes first
      * @param null   $group
+=======
+     * @param  int $priority the priority, bigger comes first
+     * @param null $group
+>>>>>>> Added CSS Group asset support #374
      *
      * @return $this
      */
@@ -444,10 +468,17 @@ class Assets
         }
 
         $data = [
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
             'priority' => intval($priority ?: 10),
             'order'    => count($this->inline_css),
             'asset'    => $asset,
             'group'    => $group ?: 'head'
+=======
+            'priority'  => intval($priority ?: 10),
+            'order'     => count($this->inline_css),
+            'asset'     => $asset,
+            'group'     => $group ?: 'head'
+>>>>>>> Added CSS Group asset support #374
         ];
 
         // check for dynamic array and merge with defaults
@@ -516,7 +547,11 @@ class Assets
      * Build the CSS link tags.
      *
      * @param  string $group name of the group
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
      * @param  array  $attributes
+=======
+     * @param  array $attributes
+>>>>>>> Added CSS Group asset support #374
      *
      * @return string
      */
@@ -554,25 +589,39 @@ class Assets
 
         if ($this->css_pipeline) {
             $pipeline_result = $this->pipelineCss($group);
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
             $pipeline_html = '<link href="' . $pipeline_result . '"' . $attributes . ' />' . "\n";
 
             if ($this->css_pipeline_before_excludes && $pipeline_result) {
                 $output .= $pipeline_html;
+=======
+            if ($pipeline_result) {
+                $output .= '<link href="' . $pipeline_result . '"' . $attributes . ' />' . "\n";
+>>>>>>> Added CSS Group asset support #374
             }
             foreach ($this->css_no_pipeline as $file) {
                 if ($group && $file['group'] == $group) {
                     $media = isset($file['media']) ? sprintf(' media="%s"', $file['media']) : '';
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
                     $output .= '<link href="' . $file['asset'] . $this->getTimestamp($file) . '"' . $attributes . $media . ' />' . "\n";
                 }
             }
             if (!$this->css_pipeline_before_excludes && $pipeline_result) {
                 $output .= $pipeline_html;
+=======
+                    $output .= '<link href="' . $file['asset'] . $this->timestamp . '"' . $attributes . $media . ' />' . "\n";
+                }
+>>>>>>> Added CSS Group asset support #374
             }
         } else {
             foreach ($this->css as $file) {
                 if ($group && $file['group'] == $group) {
                     $media = isset($file['media']) ? sprintf(' media="%s"', $file['media']) : '';
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
                     $output .= '<link href="' . $file['asset'] . $this->getTimestamp($file) . '"' . $attributes . $media . ' />' . "\n";
+=======
+                    $output .= '<link href="' . $file['asset'] . $this->timestamp . '"' . $attributes . $media . ' />' . "\n";
+>>>>>>> Added CSS Group asset support #374
                 }
             }
         }
@@ -683,12 +732,16 @@ class Assets
         // clear no-pipeline assets lists
         $this->css_no_pipeline = [];
 
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
         // Compute uid based on assets and timestamp
         $uid = md5(json_encode($this->css) . $this->css_minify . $this->css_rewrite . $group);
         $file =  $uid . '.css';
         $inline_file = $uid . '-inline.css';
 
         $relative_path = "{$this->base_url}{$this->assets_url}/{$file}";
+=======
+        $file = md5(json_encode($this->css) . $this->css_minify . $this->css_rewrite . $group) . '.css';
+>>>>>>> Added CSS Group asset support #374
 
         // If inline files exist set them on object
         if (file_exists($this->assets_dir . $inline_file)) {
@@ -703,8 +756,12 @@ class Assets
         // Remove any non-pipeline files
         foreach ($this->css as $id => $asset) {
             if ($asset['group'] == $group) {
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
                 if (!$asset['pipeline'] ||
                     ($asset['remote'] && $this->css_pipeline_include_externals === false)) {
+=======
+                if (!$asset['pipeline']) {
+>>>>>>> Added CSS Group asset support #374
                     $this->css_no_pipeline[$id] = $asset;
                 } else {
                     $temp_css[$id] = $asset;
@@ -1175,7 +1232,11 @@ class Assets
      * Download and concatenate the content of several links.
      *
      * @param  array $links
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
      * @param  bool  $css
+=======
+     * @param  bool $css
+>>>>>>> Added CSS Group asset support #374
      *
      * @return string
      */

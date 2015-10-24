@@ -1,3 +1,4 @@
+<<<<<<< a8933591afd01f4739d60231f9714227dd3e7ae7
 # v1.1.6
 ## 10/19/2016
 
@@ -573,6 +574,17 @@
 1. [](#bugfix)
     * Accept variety of `true` values in `User.authorize()` method
     * Fix for `Validation` throwing an error if no label set
+=======
+# v1.0.0-rc.2
+## xx/xx/2015
+
+1. [](#new)
+    * Added support for CSS Asset groups
+1. [](#improved)
+    * ...
+1. [](#bugfix)
+    * ...
+>>>>>>> Added CSS Group asset support #374
 
 # v1.0.0-rc.1
 ## 10/23/2015
