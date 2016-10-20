@@ -764,15 +764,16 @@ form:
 
             fields:
                 errors.display:
-                    type: toggle
+                    type: select
                     label: PLUGIN_ADMIN.DISPLAY_ERRORS
                     help: PLUGIN_ADMIN.DISPLAY_ERRORS_HELP
-                    highlight: 0
+                    size: medium
+                    highlight: 1
                     options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
-                    validate:
-                        type: bool
+                        -1: PLUGIN_ADMIN.ERROR_SYSTEM
+                        0: PLUGIN_ADMIN.ERROR_SIMPLE
+                        1: PLUGIN_ADMIN.ERROR_FULL_BACKTRACE
+
 
                 errors.log:
                     type: toggle
@@ -851,11 +852,21 @@ form:
                         '0755': '0755'
                         '0775': '0775'
 
-
                 images.debug:
                     type: toggle
                     label: PLUGIN_ADMIN.IMAGES_DEBUG
                     help: PLUGIN_ADMIN.IMAGES_DEBUG_HELP
+                    highlight: 0
+                    options:
+                        1: PLUGIN_ADMIN.YES
+                        0: PLUGIN_ADMIN.NO
+                    validate:
+                        type: bool
+
+                images.auto_fix_orientation:
+                    type: toggle
+                    label: PLUGIN_ADMIN.IMAGES_AUTO_FIX_ORIENTATION
+                    help: PLUGIN_ADMIN.IMAGES_AUTO_FIX_ORIENTATION_HELP
                     highlight: 0
                     options:
                         1: PLUGIN_ADMIN.YES
@@ -966,6 +977,18 @@ form:
                     size: small
                     label: PLUGIN_ADMIN.SESSION_PATH
                     help: PLUGIN_ADMIN.SESSION_PATH_HELP
+
+                session.split:
+                    type: toggle
+                    label: PLUGIN_ADMIN.SESSION_SPLIT
+                    help: PLUGIN_ADMIN.SESSION_SPLIT_HELP
+                    highlight: 1
+                    options:
+                        1: PLUGIN_ADMIN.YES
+                        0: PLUGIN_ADMIN.NO
+                    default: true
+                    validate:
+                        type: bool
 
         advanced:
             type: section
